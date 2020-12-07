@@ -12,6 +12,9 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   local_dir: build
+  branches:
+    only:
+      - const
   on:
   branch: gh-pages
 # HOOKS
