@@ -16,7 +16,7 @@ deploy:
     only:
       - const
   on:
-  branch: gh-pages
+  branch: master
 # HOOKS
 # before_install:
 # install:
