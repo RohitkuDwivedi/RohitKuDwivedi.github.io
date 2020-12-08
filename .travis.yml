@@ -4,7 +4,7 @@ node_js:
 cache: npm
 
 install:
-  - npm ci
+  - npm install
 script:
   - npm run build
 deploy:
@@ -14,13 +14,4 @@ deploy:
   local_dir: build
   on:
     branch: master
-# HOOKS
-# before_install:
-# install:
-# before_script:
-# script:
-# after_success:
-# after_failure:
-# before_deploy:
-# deploy:
-# after_deploy:
+
