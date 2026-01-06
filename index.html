@@ -1,59 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Photo Gallery</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f0f0f0;
-    }
-    h1 {
-      text-align: center;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 15px;
-      padding: 20px;
-    }
-    .gallery img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      transition: transform 0.2s;
-    }
-    .gallery img:hover {
-      transform: scale(1.03);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Photo Gallery</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h1>📸 My Photo Gallery</h1>
-  <div class="gallery" id="gallery"></div>
+    <h1 class="title">Photo Gallery</h1>
 
-  <script>
-    // List your photo filenames here (inside the 'photos' directory)
-    const photoFilenames = [
-      '1.jpg',
-      '2.jpg',
-      '3.jpg',
-      '4.jpg'
-    // Add more filenames as needed
-    ];
+    <div id="gallery" class="gallery-grid"></div>
 
-    const gallery = document.getElementById('gallery');
-    const repoURL = 'https://RohitkuDwivedi.github.io/RohitKuDwivedi.github.io/photos/'; // 🔁 Replace with your repo info
+    <div id="modal" class="modal">
+        <span id="close" class="close">&times;</span>
+        <img id="modal-image" class="modal-content">
+        <div id="modal-description" class="modal-description"></div>
+    </div>
 
-    photoFilenames.forEach(file => {
-      const img = document.createElement('img');
-      img.src = repoURL + file;
-      img.alt = file;
-      gallery.appendChild(img);
-    });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
