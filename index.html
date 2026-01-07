@@ -12,7 +12,7 @@
 
 <h1 class="title">Photo Gallery</h1>
 
-<div id="gallery" class="gallery-grid"></div>
+<div id="gallery"></div>
 
 <div id="modal" class="modal">
     <span id="close" class="close">&times;</span>
@@ -29,33 +29,90 @@ async function loadGallery() {
 
     try {
         const apiURL = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/photos`;
-
         const response = await fetch(apiURL);
         const files = await response.json();
 
         gallery.innerHTML = "";
 
-        for (let file of files) {
+        let images = [];
 
+        for (let file of files) {
             if (file.type !== "file") continue;
 
             const name = file.name;
 
             if (!name.match(/\.(jpeg|jpg|png|gif|webp)$/i)) continue;
 
-            const itemDiv = document.createElement("div");
-            itemDiv.className = "gallery-item";
+            // Fetch latest commit info to get upload date
+            const commitURL = `https://api.github.com/repos/${repoOwner}/${repoName}/commits?path=photos/${name}&per_page=1`;
 
-            const img = document.createElement("img");
+            const commitResponse = await fetch(commitURL);
+            const commitData = await commitResponse.json();
 
-            img.src = file.download_url;
-            img.alt = name;
+            let date = new Date();
 
-            itemDiv.appendChild(img);
+            if (commitData.length > 0) {
+                date = new Date(commitData[0].commit.author.date);
+            }
 
-            itemDiv.onclick = () => openModal(file.download_url);
+            images.push({
+                name,
+                url: file.download_url,
+                date
+            });
+        }
 
-            gallery.appendChild(itemDiv);
+        // Group images by YYYY-MM
+        const groups = {};
+
+        for (let img of images) {
+            const ym = img.date.getFullYear() + "-" + 
+                       String(img.date.getMonth() + 1).padStart(2, '0');
+
+            if (!groups[ym]) groups[ym] = [];
+
+            groups[ym].push(img);
+        }
+
+        // Sort months descending (newest first)
+        const sortedMonths = Object.keys(groups).sort().reverse();
+
+        const monthNames = [
+            "January","February","March","April","May","June",
+            "July","August","September","October","November","December"
+        ];
+
+        for (let monthKey of sortedMonths) {
+
+            const [year, month] = monthKey.split("-");
+            const monthIndex = parseInt(month) - 1;
+
+            const sectionTitle = document.createElement("div");
+            sectionTitle.className = "month-section";
+            sectionTitle.textContent = monthNames[monthIndex] + " " + year;
+
+            gallery.appendChild(sectionTitle);
+
+            const grid = document.createElement("div");
+            grid.className = "month-grid";
+
+            for (let img of groups[monthKey]) {
+
+                const itemDiv = document.createElement("div");
+                itemDiv.className = "gallery-item";
+
+                const imageEl = document.createElement("img");
+                imageEl.src = img.url;
+                imageEl.alt = img.name;
+
+                itemDiv.appendChild(imageEl);
+
+                itemDiv.onclick = () => openModal(img.url);
+
+                grid.appendChild(itemDiv);
+            }
+
+            gallery.appendChild(grid);
         }
 
     } catch (error) {

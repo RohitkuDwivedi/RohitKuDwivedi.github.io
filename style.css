@@ -10,9 +10,18 @@ body {
     margin-bottom: 30px;
 }
 
-.gallery-grid {
+.month-section {
+    margin: 40px auto 10px;
+    max-width: 1200px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 22px;
+    padding-left: 10px;
+}
+
+.month-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
     max-width: 1200px;
     margin: auto;
@@ -24,12 +33,23 @@ body {
     border: 5px solid white;
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
     cursor: pointer;
+
+    /* Force square cards */
+    aspect-ratio: 1 / 1;
+
+    /* Center the image inside the card */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .gallery-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+
+    /* No cropping – proportional scaling */
+    object-fit: contain;
+
     display: block;
 }
 
@@ -42,12 +62,14 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
+    text-align: center;
 }
 
 .modal-content {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 85%;
+    max-height: 85%;
+    margin: auto;
 }
 
 .close {
