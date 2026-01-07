@@ -1,31 +1,19 @@
-# Rohit Photo Gallery – GitHub Pages
+# GitHub Pages Photo Gallery
 
-This repository hosts a simple, automated photo gallery website built using **GitHub Pages** and client-side JavaScript.
+A minimal automated photo gallery.
 
-## 🌐 Website Link
-
-The gallery can be accessed at:
+## Live Site
 
 **https://rohitkudwivedi.github.io**
 
----
+## Usage
 
-## 📌 Concept
+- Add any image file to the `photos/` directory.
+- Commit and push.
+- The gallery page automatically lists and displays all images.
 
-The gallery is designed to be easily maintainable without modifying HTML.
+No build step required.
 
-### How it works:
+## Author
 
-- All images are stored inside the `photos/` folder.
-- Image filenames follow a numeric pattern:  
-  `1.jpeg`, `2.jpeg`, `3.jpeg`, ...
-- Descriptions for each photo are stored in `description.json`.
-- When the page loads, `script.js`:
-  - Fetches the JSON file
-  - Loops through all keys
-  - Automatically generates the gallery grid
-
----
-
-## 📁 Folder Structure
-
+Rohit Dwivedi
